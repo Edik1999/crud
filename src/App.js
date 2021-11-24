@@ -28,10 +28,8 @@ function App() {
     },150)
   }
 
-  const removeHandler = (e) => {
-    let parent = e.target.closest('div'),
-        parentId = parent.id
-    fetch(`http://localhost:7777/notes/${parentId}`,{method: 'DELETE'})
+  const removeHandler = (id) => {
+    fetch(`http://localhost:7777/notes/${id}`,{method: 'DELETE'})
     setTimeout(()=>{
       loadNotes()
     },150)
@@ -68,7 +66,7 @@ function App() {
       </form>
       <button onClick={reload}>Обновить</button>
       <div className="cardwrapper">
-        {notes.map(item => { return (<div className="card" id={item.id} key={item.id}>{item.text}<span onClick={removeHandler}>  X</span></div>)})}
+        {notes.map(item => { return (<div className="card" id={item.id} key={item.id}>{item.text}<span onClick={() => removeHandler(item.id)}>  X</span></div>)})}
       </div>
     </div>
   );
